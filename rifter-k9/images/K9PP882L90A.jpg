@@ -1,0 +1,2741 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Service Box</title>
+
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=11" />
+<title>Service Box</title>
+
+
+<link href='/ressource/9.17.11/images/AP/favicon.ico' rel="shortcut icon" />
+
+
+<link href="/ressource/9.17.11/csscg/main.css" rel="stylesheet" type="text/css"
+media="all" id="maincss" />
+<link href="/ressource/9.17.11/csscg/AP/custom.css"
+rel="stylesheet" type="text/css" media="all" />
+
+<noscript>
+<meta http-equiv="Refresh" content="0; URL=/pages/errors/notAllowdedJscript.jsp" />
+</noscript>
+<script type="text/JavaScript" src="/ressource/9.17.11/script/jquery-1.7.1.min.js" language="javascript"></script>
+<script type="text/JavaScript" src="/ressource/9.17.11/script/jquery.colorbox.js" language="javascript"></script>
+<script type="text/JavaScript" src="https://www.recaptcha.net/recaptcha/api.js" language="javascript"></script>
+<script language="javascript">
+if (window.top != window.window)
+// window.top.location = window.location;
+window.top.location = ESAPI.encoder().encodeForJavaScript(window.location);
+var cookiesEnabled = false;
+document.cookie = "Enabled=true";
+var cookieValid = document.cookie;
+if (cookieValid.indexOf("Enabled=true") != -1) {
+cookiesEnabled = true;
+} else {
+cookiesEnabled = false;
+}
+if (!cookiesEnabled)
+document.location = "/pages/errors/notAllowdedCookie.jsp";
+// Qui sommes nous
+$(document).ready(function() {
+$("a.login_qsn").click(function() {
+$.colorbox({
+width : '600px',
+height : '450px',
+title : function() {
+return $('#qsn').html();
+},
+scrolling : false,
+html : $("#popup").html()
+});
+return false;
+});
+});
+</script>
+<script language="javascript">
+function goToTIRegistration()
+{
+var registrationURL = document.getElementById('registrationURL').value;
+var modifiedRegistrationURL = registrationURL.replace("?",document.getElementById('language').value.substring(0,2));
+window.open(modifiedRegistrationURL,"Registration");
+};
+function goToTIPassword()
+{
+var watchWordURL = document.getElementById('watchWordURL').value;
+var modifiedwatchWordURL = watchWordURL.replace("?",document.getElementById('language').value.substring(0,2));
+window.open(modifiedwatchWordURL,"Change Password");
+};
+
+function calculNbMenu(){
+var nbMenu = $('#lien_cgv').children('ul').children('li').length;
+if (nbMenu == 4){
+$("#lien_cgv").addClass("menuQuatre");
+$("#lien_ctc").addClass("menuQuatre");
+}
+if (nbMenu == 3){
+$("#lien_cgv").addClass("menuTrois");
+$("#lien_ctc").addClass("menuTrois");
+}
+if (nbMenu == 2){
+$("#lien_cgv").addClass("menuDeux");
+$("#lien_ctc").addClass("menuDeux");
+}
+if (nbMenu == 1){
+$("#lien_cgv").addClass("menuUn");
+$("#lien_ctc").addClass("menuUn");
+}
+}
+
+function tailleFond() {
+if (document.body) {
+rapport = (document.body.clientWidth)/(document.body.clientHeight-170);
+if (rapport> 2.3) {
+document.getElementById("fond").style.width = (document.body.clientWidth)+"px";
+document.getElementById("fond").style.height  = (document.body.clientHeight-170)+"px";
+}
+else
+{
+document.getElementById("fond").style.width = (document.body.clientWidth)+"px";
+document.getElementById("fond").style.height  = (document.body.clientWidth/2.3)+"px";
+}
+}
+else
+{
+rapport = (window.innerWidth)/(window.innerHeight-170);
+if (rapport> 2.3) {
+document.getElementById("fond").style.width  = (window.innerWidth)+"px";
+document.getElementById("fond").style.height = (window.innerHeight-170)+"px";
+}
+else
+{
+document.getElementById("fond").style.width  = (window.innerWidth)+"px";
+document.getElementById("fond").style.height = (window.innerWidth/2.3)+"px";
+}
+}
+}
+</script>
+
+<script type="text/JavaScript" src="/ressource/9.17.11/script/modernizr.js" language="javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+if(!Modernizr.input.placeholder){
+$(this).find('[placeholder]').each(function() {
+var input = $(this);
+if (input.val() == '' || input.val() == input.attr('placeholder')) {
+input.addClass('placeholder');
+input.val(input.attr('placeholder'));
+if (input[0].id === "password")
+replaceT(input[0],"text",input.attr('placeholder'));
+var chps=document.getElementById(input[0].id);
+if(chps.addEventListener)
+{
+chps.addEventListener('focus', function(){onfocus(input[0].id);}, false);
+chps.addEventListener('blur', function(){onblur(input[0].id);}, false);
+}
+else
+{
+chps.attachEvent('onfocus', function(){onfocus(input[0].id);});
+chps.attachEvent('onblur', function(){onblur(input[0].id);});
+}
+}
+});
+}
+});
+function onblur(id){
+var input = document.getElementById(id);
+if (document.all && !document.querySelector) {//IE7
+input.style.color='#C8C8C8';
+}
+if (input.value == '' || input.value == input.getAttribute('placeholder')) {
+input.className='id placeholder';
+input.value = input.getAttribute('placeholder');
+if (id === "password")
+replaceT(input,"text",input.getAttribute('placeholder'));
+}
+}
+function onfocus(id) {
+var input = document.getElementById(id);
+if (document.all && !document.querySelector) {//IE7
+input.style.color='#000000';
+}
+if (input.value == input.getAttribute('placeholder')) {
+input.value='';
+input.className='id';
+setTimeout(function() { input.focus(); }, 100)
+if (input.id === "password") {
+replaceT(input,"password",'');
+setTimeout(function() { document.getElementById('password').focus(); }, 10);
+}
+}
+}
+function replaceT(input,type,val) {
+var newO;
+var obj=input;
+if (navigator.appName=="Microsoft Internet Explorer") { // IE
+if (document.all && !document.querySelector) {//IE7
+newO=document.createElement("<input name="+obj.getAttribute('name')+">");
+} else {
+newO=document.createElement('input'); // IE8 IE9
+}
+newO.setAttribute('type',type);
+newO.name = obj.getAttribute('name');
+newO.setAttribute('maxLength',10);
+newO.setAttribute('placeholder',input.getAttribute('placeholder'));
+newO.className =obj.className;
+newO.id=obj.id;
+newO.value=val;
+obj.parentNode.replaceChild(newO,obj);
+if(newO.addEventListener)
+{
+newO.addEventListener('focus', function(){onfocus(newO.id);}, false);
+newO.addEventListener('blur', function(){onblur(newO.id);}, false);
+} else {
+newO.attachEvent('onfocus', function(){onfocus(newO.id);});
+newO.attachEvent('onblur', function(){onblur(newO.id);});
+}
+} else { // FIREFOX CHROME
+obj.setAttribute('type',type);
+obj.setAttribute('placeholder',input.getAttribute('placeholder'));
+obj.className = 'id';
+obj.value= val;
+obj.focus();
+}
+}
+</script>
+<script type="text/JavaScript" src="/ressource/9.17.11/script/AP/Script.js" language="javascript"></script>
+<script language="Javascript1.1" src='/ressource/9.17.11/script/staticJS.js'></script>
+<script type="text/javascript" language="Javascript1.1"> 
+
+<!-- Begin 
+
+    var bCancel = false; 
+
+    function validateLoginForm(form) { 
+        if (bCancel) { 
+            return true; 
+        } else { 
+            var formValidationResult; 
+            formValidationResult = validateRequired(form); 
+            return (formValidationResult == 1); 
+        } 
+    } 
+
+    function loginForm_required () { 
+     this.a0 = new Array("password", "Vous devez entrer un mot de passe", new Function ("varName", " return this[varName];"));
+     this.a1 = new Array("userid", "Vous devez entrer un identifiant", new Function ("varName", " return this[varName];"));
+    } 
+
+
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+   /*$RCSfile: validateDate.js,v $ $Rev: 478676 $ $Date: 2006-11-23 21:35:44 +0000 (Thu, 23 Nov 2006) $ */
+    /**
+    * Check to see if fields are a valid date.
+    * Fields are not checked if they are disabled.
+    * @param form The form validation is taking place on.
+    */
+    function validateDate(form) {
+       var bValid = true;
+       var focusField = null;
+       var i = 0;
+       var fields = new Array();
+ 
+       var oDate = eval('new ' + jcv_retrieveFormName(form) +  '_DateValidations()');
+
+       for (var x in oDate) {
+            if (!jcv_verifyArrayElement(x, oDate[x])) {
+                continue;
+            }
+           var field = form[oDate[x][0]];
+           if (!jcv_isFieldPresent(field)) {
+             continue;
+           }
+           var value = field.value;
+           var isStrict = true;
+           var datePattern = oDate[x][2]("datePatternStrict");
+           // try loose pattern
+           if (datePattern == null) {
+               datePattern = oDate[x][2]("datePattern");
+               isStrict = false;
+           }    
+           if ((field.type == 'hidden' ||
+                field.type == 'text' ||
+                field.type == 'textarea') &&
+               (value.length > 0) && (datePattern.length > 0)) {
+                 var MONTH = "MM";
+                 var DAY = "dd";
+                 var YEAR = "yyyy";
+                 var orderMonth = datePattern.indexOf(MONTH);
+                 var orderDay = datePattern.indexOf(DAY);
+                 var orderYear = datePattern.indexOf(YEAR);
+                 if ((orderDay < orderYear && orderDay > orderMonth)) {
+                     var iDelim1 = orderMonth + MONTH.length;
+                     var iDelim2 = orderDay + DAY.length;
+                     var delim1 = datePattern.substring(iDelim1, iDelim1 + 1);
+                     var delim2 = datePattern.substring(iDelim2, iDelim2 + 1);
+                     if (iDelim1 == orderDay && iDelim2 == orderYear) {
+                        dateRegexp = isStrict 
+                             ? new RegExp("^(\\d{2})(\\d{2})(\\d{4})$") 
+                             : new RegExp("^(\\d{1,2})(\\d{1,2})(\\d{4})$");
+                     } else if (iDelim1 == orderDay) {
+                        dateRegexp = isStrict 
+                             ? new RegExp("^(\\d{2})(\\d{2})[" + delim2 + "](\\d{4})$")
+                             : new RegExp("^(\\d{1,2})(\\d{1,2})[" + delim2 + "](\\d{4})$");
+                     } else if (iDelim2 == orderYear) {
+                        dateRegexp = isStrict
+                             ? new RegExp("^(\\d{2})[" + delim1 + "](\\d{2})(\\d{4})$")
+                             : new RegExp("^(\\d{1,2})[" + delim1 + "](\\d{1,2})(\\d{4})$");
+                     } else {
+                        dateRegexp = isStrict
+                             ? new RegExp("^(\\d{2})[" + delim1 + "](\\d{2})[" + delim2 + "](\\d{4})$")
+                             : new RegExp("^(\\d{1,2})[" + delim1 + "](\\d{1,2})[" + delim2 + "](\\d{4})$");
+                     }
+                     var matched = dateRegexp.exec(value);
+                     if(matched != null) {
+                        if (!jcv_isValidDate(matched[2], matched[1], matched[3])) {
+                           if (i == 0) {
+                               focusField = field;
+                           }
+                           fields[i++] = oDate[x][1];
+                           bValid =  false;
+                        }
+                     } else {
+                        if (i == 0) {
+                            focusField = field;
+                        }
+                        fields[i++] = oDate[x][1];
+                        bValid =  false;
+                     }
+                 } else if ((orderMonth < orderYear && orderMonth > orderDay)) {
+                     var iDelim1 = orderDay + DAY.length;
+                     var iDelim2 = orderMonth + MONTH.length;
+                     var delim1 = datePattern.substring(iDelim1, iDelim1 + 1);
+                     var delim2 = datePattern.substring(iDelim2, iDelim2 + 1);
+                     if (iDelim1 == orderMonth && iDelim2 == orderYear) {
+                         dateRegexp = isStrict 
+                            ? new RegExp("^(\\d{2})(\\d{2})(\\d{4})$")
+                            : new RegExp("^(\\d{1,2})(\\d{1,2})(\\d{4})$");
+                     } else if (iDelim1 == orderMonth) {
+                         dateRegexp = isStrict
+                            ? new RegExp("^(\\d{2})(\\d{2})[" + delim2 + "](\\d{4})$")
+                            : new RegExp("^(\\d{1,2})(\\d{1,2})[" + delim2 + "](\\d{4})$");
+                     } else if (iDelim2 == orderYear) {
+                         dateRegexp = isStrict
+                            ? new RegExp("^(\\d{2})[" + delim1 + "](\\d{2})(\\d{4})$")
+                            : new RegExp("^(\\d{1,2})[" + delim1 + "](\\d{1,2})(\\d{4})$");
+                     } else {
+                         dateRegexp = isStrict
+                            ? new RegExp("^(\\d{2})[" + delim1 + "](\\d{2})[" + delim2 + "](\\d{4})$")
+                            : new RegExp("^(\\d{1,2})[" + delim1 + "](\\d{1,2})[" + delim2 + "](\\d{4})$");
+                     }
+                     var matched = dateRegexp.exec(value);
+                     if(matched != null) {
+                         if (!jcv_isValidDate(matched[1], matched[2], matched[3])) {
+                             if (i == 0) {
+                                  focusField = field;
+                             }
+                             fields[i++] = oDate[x][1];
+                             bValid =  false;
+                          }
+                     } else {
+                         if (i == 0) {
+                             focusField = field;
+                         }
+                         fields[i++] = oDate[x][1];
+                         bValid =  false;
+                     }
+                 } else if ((orderMonth > orderYear && orderMonth < orderDay)) {
+                     var iDelim1 = orderYear + YEAR.length;
+                     var iDelim2 = orderMonth + MONTH.length;
+                     var delim1 = datePattern.substring(iDelim1, iDelim1 + 1);
+                     var delim2 = datePattern.substring(iDelim2, iDelim2 + 1);
+                     if (iDelim1 == orderMonth && iDelim2 == orderDay) {
+                         dateRegexp = isStrict
+                            ? new RegExp("^(\\d{4})(\\d{2})(\\d{2})$")
+                            : new RegExp("^(\\d{4})(\\d{1,2})(\\d{1,2})$");
+                     } else if (iDelim1 == orderMonth) {
+                         dateRegexp = isStrict
+                            ? new RegExp("^(\\d{4})(\\d{2})[" + delim2 + "](\\d{2})$")
+                            : new RegExp("^(\\d{4})(\\d{1,2})[" + delim2 + "](\\d{1,2})$");
+                     } else if (iDelim2 == orderDay) {
+                         dateRegexp = isStrict
+                            ? new RegExp("^(\\d{4})[" + delim1 + "](\\d{2})(\\d{2})$")
+                            : new RegExp("^(\\d{4})[" + delim1 + "](\\d{1,2})(\\d{1,2})$");
+                     } else {
+                         dateRegexp = isStrict
+                            ? new RegExp("^(\\d{4})[" + delim1 + "](\\d{2})[" + delim2 + "](\\d{2})$")
+                            : new RegExp("^(\\d{4})[" + delim1 + "](\\d{1,2})[" + delim2 + "](\\d{1,2})$");
+                     }
+                     var matched = dateRegexp.exec(value);
+                     if(matched != null) {
+                         if (!jcv_isValidDate(matched[3], matched[2], matched[1])) {
+                             if (i == 0) {
+                                 focusField = field;
+                             }
+                             fields[i++] = oDate[x][1];
+                             bValid =  false;
+                         }
+                     } else {
+                          if (i == 0) {
+                              focusField = field;
+                          }
+                          fields[i++] = oDate[x][1];
+                          bValid =  false;
+                     }
+                 } else {
+                     if (i == 0) {
+                         focusField = field;
+                     }
+                     fields[i++] = oDate[x][1];
+                     bValid =  false;
+                 }
+          }
+       }
+       if (fields.length > 0) {
+          jcv_handleErrors(fields, focusField);
+       }
+       return bValid;
+    }
+    
+    function jcv_isValidDate(day, month, year) {
+	    if (month < 1 || month > 12) {
+            return false;
+        }
+        if (day < 1 || day > 31) {
+            return false;
+        }
+        if ((month == 4 || month == 6 || month == 9 || month == 11) &&
+            (day == 31)) {
+            return false;
+        }
+        if (month == 2) {
+            var leap = (year % 4 == 0 &&
+               (year % 100 != 0 || year % 400 == 0));
+            if (day>29 || (day == 29 && !leap)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+    /*$RCSfile: validateMinLength.js,v $ $Rev: 478676 $ $Date: 2006-11-23 21:35:44 +0000 (Thu, 23 Nov 2006) $ */
+    /**
+    * A field is considered valid if greater than the specified minimum.
+    * Fields are not checked if they are disabled.
+    *
+    *  Caution: Using validateMinLength() on a password field in a 
+    *  login page gives unnecessary information away to hackers. While it only slightly
+    *  weakens security, we suggest using it only when modifying a password.
+    * @param form The form validation is taking place on.
+    */
+    function validateMinLength(form) {
+        var isValid = true;
+        var focusField = null;
+        var i = 0;
+        var fields = new Array();
+
+        var oMinLength = eval('new ' + jcv_retrieveFormName(form) +  '_minlength()');
+
+        for (var x in oMinLength) {
+            if (!jcv_verifyArrayElement(x, oMinLength[x])) {
+                continue;
+            }
+            var field = form[oMinLength[x][0]];
+            if (!jcv_isFieldPresent(field)) {
+              continue;
+            }
+
+            if ((field.type == 'hidden' ||
+                field.type == 'text' ||
+                field.type == 'password' ||
+                field.type == 'textarea')) {
+
+                /* Adjust length for carriage returns - see Bug 37962 */
+                var lineEndLength = oMinLength[x][2]("lineEndLength");
+                var adjustAmount = 0;
+                if (lineEndLength) {
+                    var rCount = 0;
+                    var nCount = 0;
+                    var crPos = 0;
+                    while (crPos < field.value.length) {
+                        var currChar = field.value.charAt(crPos);
+                        if (currChar == '\r') {
+                            rCount++;
+                        }
+                        if (currChar == '\n') {
+                            nCount++;
+                        }
+                        crPos++;
+                    }
+                    var endLength = parseInt(lineEndLength);
+                    adjustAmount = (nCount * endLength) - (rCount + nCount);
+                }
+
+                var iMin = parseInt(oMinLength[x][2]("minlength"));
+                if ((trim(field.value).length > 0) && ((field.value.length + adjustAmount) < iMin)) {
+                    if (i == 0) {
+                        focusField = field;
+                    }
+                    fields[i++] = oMinLength[x][1];
+                    isValid = false;
+                }
+            }
+        }
+        if (fields.length > 0) {
+           jcv_handleErrors(fields, focusField);
+        }
+        return isValid;
+    }
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+    /*$RCSfile: validateIntRange.js,v $ $Rev: 478676 $ $Date: 2006-11-23 21:35:44 +0000 (Thu, 23 Nov 2006) $ */
+    /**
+    * Check to see if fields is in a valid integer range.
+    * Fields are not checked if they are disabled.
+    * @param form The form validation is taking place on.
+    */
+    function validateIntRange(form) {
+        var isValid = true;
+        var focusField = null;
+        var i = 0;
+        var fields = new Array();
+ 
+        var oRange = eval('new ' + jcv_retrieveFormName(form) +  '_intRange()');        
+        for (var x in oRange) {
+            if (!jcv_verifyArrayElement(x, oRange[x])) {
+                continue;
+            }
+            var field = form[oRange[x][0]];
+            if (jcv_isFieldPresent(field)) {
+                var value = '';
+                if (field.type == 'hidden' ||
+                    field.type == 'text' || field.type == 'textarea' ||
+                    field.type == 'radio' ) {
+                    value = field.value;
+                }
+                if (field.type == 'select-one') {
+                    var si = field.selectedIndex;
+                    if (si >= 0) {
+                        value = field.options[si].value;
+                    }
+                }
+                if (value.length > 0) {
+                    var iMin = parseInt(oRange[x][2]("min"));
+                    var iMax = parseInt(oRange[x][2]("max"));
+                    var iValue = parseInt(value, 10);
+                    if (!(iValue >= iMin && iValue <= iMax)) {
+                        if (i == 0) {
+                            focusField = field;
+                        }
+                        fields[i++] = oRange[x][1];
+                        isValid = false;
+                    }
+                }
+            }
+        }
+        if (fields.length > 0) {
+            jcv_handleErrors(fields, focusField);
+        }
+        return isValid;
+    }
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+    /*$RCSfile: validateMaxLength.js,v $ $Rev: 478676 $ $Date: 2006-11-23 21:35:44 +0000 (Thu, 23 Nov 2006) $ */
+    /**
+    * A field is considered valid if less than the specified maximum.
+    * Fields are not checked if they are disabled.
+    *
+    *  Caution: Using validateMaxLength() on a password field in a 
+    *  login page gives unnecessary information away to hackers. While it only slightly
+    *  weakens security, we suggest using it only when modifying a password.
+    * @param form The form validation is taking place on.
+    */
+    function validateMaxLength(form) {
+        var isValid = true;
+        var focusField = null;
+        var i = 0;
+        var fields = new Array();
+ 
+        var oMaxLength = eval('new ' + jcv_retrieveFormName(form) +  '_maxlength()');        
+        for (var x in oMaxLength) {
+            if (!jcv_verifyArrayElement(x, oMaxLength[x])) {
+                continue;
+            }
+            var field = form[oMaxLength[x][0]];
+            if (!jcv_isFieldPresent(field)) {
+              continue;
+            }
+
+            if ((field.type == 'hidden' ||
+                field.type == 'text' ||
+                field.type == 'password' ||
+                field.type == 'textarea')) {
+
+                /* Adjust length for carriage returns - see Bug 37962 */
+                var lineEndLength = oMaxLength[x][2]("lineEndLength");
+                var adjustAmount = 0;
+                if (lineEndLength) {
+                    var rCount = 0;
+                    var nCount = 0;
+                    var crPos = 0;
+                    while (crPos < field.value.length) {
+                        var currChar = field.value.charAt(crPos);
+                        if (currChar == '\r') {
+                            rCount++;
+                        }
+                        if (currChar == '\n') {
+                            nCount++;
+                        }
+                        crPos++;
+                    }
+                    var endLength = parseInt(lineEndLength);
+                    adjustAmount = (nCount * endLength) - (rCount + nCount);
+                }
+
+                var iMax = parseInt(oMaxLength[x][2]("maxlength"));
+                if ((field.value.length + adjustAmount)  > iMax) {
+                    if (i == 0) {
+                        focusField = field;
+                    }
+                    fields[i++] = oMaxLength[x][1];
+                    isValid = false;
+                }
+            }
+        }
+        if (fields.length > 0) {
+           jcv_handleErrors(fields, focusField);
+        }
+        return isValid;
+    }
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+   /*$RCSfile: validateFloatRange.js,v $ $Rev: 478676 $ $Date: 2006-11-23 21:35:44 +0000 (Thu, 23 Nov 2006) $ */
+    /**
+    * Check to see if fields are in a valid float range.
+    * Fields are not checked if they are disabled.
+    * @param form The form validation is taking place on.
+    */
+    function validateFloatRange(form) {
+        var isValid = true;
+        var focusField = null;
+        var i = 0;
+        var fields = new Array();
+        
+        var oRange = eval('new ' + jcv_retrieveFormName(form) +  '_floatRange()');
+        for (var x in oRange) {
+            if (!jcv_verifyArrayElement(x, oRange[x])) {
+                continue;
+            }
+            var field = form[oRange[x][0]];
+            if (!jcv_isFieldPresent(field)) {
+              continue;
+            }
+            
+            if ((field.type == 'hidden' ||
+                field.type == 'text' || field.type == 'textarea') &&
+                (field.value.length > 0)) {
+        
+                var fMin = parseFloat(oRange[x][2]("min"));
+                var fMax = parseFloat(oRange[x][2]("max"));
+                var fValue = parseFloat(field.value);
+                if (!(fValue >= fMin && fValue <= fMax)) {
+                    if (i == 0) {
+                        focusField = field;
+                    }
+                    fields[i++] = oRange[x][1];
+                    isValid = false;
+                }
+            }
+        }
+        if (fields.length > 0) {
+            jcv_handleErrors(fields, focusField);
+        }
+        return isValid;
+    }
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+    /*$RCSfile: validateByte.js,v $ $Rev: 478676 $ $Date: 2006-11-23 21:35:44 +0000 (Thu, 23 Nov 2006) $ */
+    /**
+    * Check to see if fields are a valid byte.
+    * Fields are not checked if they are disabled.
+    * @param form The form validation is taking place on.
+    */
+    function validateByte(form) {
+        var bValid = true;
+        var focusField = null;
+        var i = 0;
+        var fields = new Array();
+        
+        var oByte = eval('new ' + jcv_retrieveFormName(form) + '_ByteValidations()');
+
+        for (var x in oByte) {
+            if (!jcv_verifyArrayElement(x, oByte[x])) {
+                continue;
+            }
+            var field = form[oByte[x][0]];
+            if (!jcv_isFieldPresent(field)) {
+              continue;
+            }
+
+            if ((field.type == 'hidden' ||
+                field.type == 'text' ||
+                field.type == 'textarea' ||
+                field.type == 'select-one' ||
+                field.type == 'radio')) {
+
+                var value = '';
+                // get field's value
+                if (field.type == "select-one") {
+                    var si = field.selectedIndex;
+                    if (si >= 0) {
+                        value = field.options[si].value;
+                    }
+                } else {
+                    value = field.value;
+                }
+
+                if (value.length > 0) {
+                    if (!jcv_isDecimalDigits(value)) {
+                        bValid = false;
+                        if (i == 0) {
+                            focusField = field;
+                        }
+                        fields[i++] = oByte[x][1];
+
+                    } else {
+
+                        var iValue = parseInt(value, 10);
+                        if (isNaN(iValue) || !(iValue >= -128 && iValue <= 127)) {
+                            if (i == 0) {
+                                focusField = field;
+                            }
+                            fields[i++] = oByte[x][1];
+                            bValid = false;
+                        }
+                    }
+                }
+
+            }
+        }
+        if (fields.length > 0) {
+           jcv_handleErrors(fields, focusField);
+        }
+        return bValid;
+    }
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+    /*$RCSfile: validateInteger.js,v $ $Rev: 478676 $ $Date: 2006-11-23 21:35:44 +0000 (Thu, 23 Nov 2006) $ */
+    /**
+    * Check to see if fields are a valid integer.
+    * Fields are not checked if they are disabled.
+    * @param form The form validation is taking place on.
+    */
+    function validateInteger(form) {
+        var bValid = true;
+        var focusField = null;
+        var i = 0;
+        var fields = new Array();
+ 
+        var oInteger = eval('new ' + jcv_retrieveFormName(form) +  '_IntegerValidations()');
+        for (var x in oInteger) {
+            if (!jcv_verifyArrayElement(x, oInteger[x])) {
+                continue;
+            }
+            var field = form[oInteger[x][0]];
+            if (!jcv_isFieldPresent(field)) {
+              continue;
+            }
+
+            if ((field.type == 'hidden' ||
+                field.type == 'text' ||
+                field.type == 'textarea' ||
+                field.type == 'select-one' ||
+                field.type == 'radio')) {
+
+                var value = '';
+                // get field's value
+                if (field.type == "select-one") {
+                    var si = field.selectedIndex;
+                    if (si >= 0) {
+                        value = field.options[si].value;
+                    }
+                } else {
+                    value = field.value;
+                }
+
+                if (value.length > 0) {
+
+                    if (!jcv_isDecimalDigits(value)) {
+                        bValid = false;
+                        if (i == 0) {
+                            focusField = field;
+                        }
+                        fields[i++] = oInteger[x][1];
+
+                    } else {
+                        var iValue = parseInt(value, 10);
+                        if (isNaN(iValue) || !(iValue >= -2147483648 && iValue <= 2147483647)) {
+                            if (i == 0) {
+                                focusField = field;
+                            }
+                            fields[i++] = oInteger[x][1];
+                            bValid = false;
+                       }
+                   }
+               }
+            }
+        }
+        if (fields.length > 0) {
+           jcv_handleErrors(fields, focusField);
+        }
+        return bValid;
+    }
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+    /*$RCSfile: validateFloat.js,v $ $Rev: 478676 $ $Date: 2006-11-23 21:35:44 +0000 (Thu, 23 Nov 2006) $ */
+    /**
+    * Check to see if fields are a valid float.
+    * Fields are not checked if they are disabled.
+    * @param form The form validation is taking place on.
+    */
+    function validateFloat(form) {
+        var bValid = true;
+        var focusField = null;
+        var i = 0;
+        var fields = new Array();
+ 
+        var oFloat = eval('new ' + jcv_retrieveFormName(form) +  '_FloatValidations()');
+        for (var x in oFloat) {
+            if (!jcv_verifyArrayElement(x, oFloat[x])) {
+                continue;
+            }
+        	var field = form[oFloat[x][0]];
+            if (!jcv_isFieldPresent(field)) {
+              continue;
+            }
+        	
+            if ((field.type == 'hidden' ||
+                field.type == 'text' ||
+                field.type == 'textarea' ||
+                field.type == 'select-one' ||
+                field.type == 'radio')) {
+        
+            	var value = '';
+                // get field's value
+                if (field.type == "select-one") {
+                    var si = field.selectedIndex;
+                    if (si >= 0) {
+                        value = field.options[si].value;
+                    }
+                } else {
+                    value = field.value;
+                }
+        
+                if (value.length > 0) {
+                    // remove '.' before checking digits
+                    var tempArray = value.split('.');
+                    //Strip off leading '0'
+                    var zeroIndex = 0;
+                    var joinedString= tempArray.join('');
+                    while (joinedString.charAt(zeroIndex) == '0') {
+                        zeroIndex++;
+                    }
+                    var noZeroString = joinedString.substring(zeroIndex,joinedString.length);
+
+                    if (!jcv_isAllDigits(noZeroString) || tempArray.length > 2) {
+                        bValid = false;
+                        if (i == 0) {
+                            focusField = field;
+                        }
+                        fields[i++] = oFloat[x][1];
+
+                    } else {
+	                var iValue = parseFloat(value);
+	                if (isNaN(iValue)) {
+	                    if (i == 0) {
+	                        focusField = field;
+	                    }
+	                    fields[i++] = oFloat[x][1];
+	                    bValid = false;
+	                }
+                    }
+                }
+            }
+        }
+        if (fields.length > 0) {
+           jcv_handleErrors(fields, focusField);
+        }
+        return bValid;
+    }
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+    /*$RCSfile: validateRequired.js,v $ $Rev: 478676 $ $Date: 2006-11-23 21:35:44 +0000 (Thu, 23 Nov 2006) $ */
+    /**
+    *  Check to see if fields must contain a value.
+    * Fields are not checked if they are disabled.
+    *
+    * @param form The form validation is taking place on.
+    */
+
+    function validateRequired(form) {
+        var isValid = true;
+        var focusField = null;
+        var i = 0;
+        var fields = new Array();
+
+        var oRequired = eval('new ' + jcv_retrieveFormName(form) +  '_required()');
+
+        for (var x in oRequired) {
+            if (!jcv_verifyArrayElement(x, oRequired[x])) {
+                continue;
+            }
+            var field = form[oRequired[x][0]];
+
+            if (!jcv_isFieldPresent(field)) {
+                fields[i++] = oRequired[x][1];
+                isValid=false;
+            } else if ((field.type == 'hidden' ||
+                field.type == 'text' ||
+                field.type == 'textarea' ||
+                field.type == 'file' ||
+                field.type == 'radio' ||
+                field.type == 'checkbox' ||
+                field.type == 'select-one' ||
+                field.type == 'password')) {
+
+                var value = '';
+                // get field's value
+                if (field.type == "select-one") {
+                    var si = field.selectedIndex;
+                    if (si >= 0) {
+                        value = field.options[si].value;
+                    }
+                } else if (field.type == 'radio' || field.type == 'checkbox') {
+                    if (field.checked) {
+                        value = field.value;
+                    }
+                } else {
+                    value = field.value;
+                }
+
+                if (trim(value).length == 0) {
+
+                    if ((i == 0) && (field.type != 'hidden')) {
+                        focusField = field;
+                    }
+                    fields[i++] = oRequired[x][1];
+                    isValid = false;
+                }
+            } else if (field.type == "select-multiple") { 
+                var numOptions = field.options.length;
+                lastSelected=-1;
+                for(loop=numOptions-1;loop>=0;loop--) {
+                    if(field.options[loop].selected) {
+                        lastSelected = loop;
+                        value = field.options[loop].value;
+                        break;
+                    }
+                }
+                if(lastSelected < 0 || trim(value).length == 0) {
+                    if(i == 0) {
+                        focusField = field;
+                    }
+                    fields[i++] = oRequired[x][1];
+                    isValid=false;
+                }
+            } else if ((field.length > 0) && (field[0].type == 'radio' || field[0].type == 'checkbox')) {
+                isChecked=-1;
+                for (loop=0;loop < field.length;loop++) {
+                    if (field[loop].checked) {
+                        isChecked=loop;
+                        break; // only one needs to be checked
+                    }
+                }
+                if (isChecked < 0) {
+                    if (i == 0) {
+                        focusField = field[0];
+                    }
+                    fields[i++] = oRequired[x][1];
+                    isValid=false;
+                }
+            }   
+        }
+        if (fields.length > 0) {
+           jcv_handleErrors(fields, focusField);
+        }
+        return isValid;
+    }
+    
+    // Trim whitespace from left and right sides of s.
+    function trim(s) {
+        return s.replace( /^\s*/, "" ).replace( /\s*$/, "" );
+    }
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+  /*$RCSfile: validateUtilities.js,v $ $Rev: 478676 $ $Date: 2006-11-23 21:35:44 +0000 (Thu, 23 Nov 2006) $ */
+  /**
+  * This is a place holder for common utilities used across the javascript validation
+  *
+  **/
+
+  /**
+   * Retreive the name of the form
+   * @param form The form validation is taking place on.
+   */
+  function jcv_retrieveFormName(form) {
+
+      // Please refer to Bugs 31534, 35127, 35294, 37315 & 38159
+      // for the history of the following code
+
+      var formName;
+
+      if (form.getAttributeNode) {
+          if (form.getAttributeNode("id") && form.getAttributeNode("id").value) {
+              formName = form.getAttributeNode("id").value;
+          } else {
+              formName = form.getAttributeNode("name").value;
+          }
+      } else if (form.getAttribute) {
+          if (form.getAttribute("id")) {
+              formName = form.getAttribute("id");
+          } else {
+              formName = form.attributes["name"];
+          }
+      } else {
+          if (form.id) {
+              formName = form.id;
+          } else {
+              formName = form.name;
+          }
+      }
+
+      return formName;
+
+  }  
+
+  /**
+   * Handle error messages.
+   * @param messages Array of error messages.
+   * @param focusField Field to set focus on.
+   */
+  function jcv_handleErrors(messages, focusField) {
+      if (focusField && focusField != null) {
+          var doFocus = true;
+          if (focusField.disabled || focusField.type == 'hidden') {
+              doFocus = false;
+          }
+          if (doFocus && 
+              focusField.style && 
+              focusField.style.visibility &&
+              focusField.style.visibility == 'hidden') {
+              doFocus = false;
+          }
+          if (doFocus) {
+              focusField.focus();
+          }
+      }
+      alert(messages.join('\n'));
+  }
+
+  /**
+   * Checks that the array element is a valid
+   * Commons Validator element and not one inserted by
+   * other JavaScript libraries (for example the
+   * prototype library inserts an "extends" into
+   * all objects, including Arrays).
+   * @param name The element name.
+   * @param value The element value.
+   */
+  function jcv_verifyArrayElement(name, element) {
+      if (element && element.length && element.length == 3) {
+          return true;
+      } else {
+          return false;
+      }
+  }
+
+  /**
+   * Checks whether the field is present on the form.
+   * @param field The form field.
+   */
+  function jcv_isFieldPresent(field) {
+      var fieldPresent = true;
+      if (field == null || (typeof field == 'undefined')) {
+          fieldPresent = false;
+      } else {
+          if (field.disabled) {
+              fieldPresent = false;
+          }
+      }
+      return fieldPresent;
+  }
+
+  /**
+   * Check a value only contains valid numeric digits
+   * @param argvalue The value to check.
+   */
+  function jcv_isAllDigits(argvalue) {
+      argvalue = argvalue.toString();
+      var validChars = "0123456789";
+      var startFrom = 0;
+      if (argvalue.substring(0, 2) == "0x") {
+         validChars = "0123456789abcdefABCDEF";
+         startFrom = 2;
+      } else if (argvalue.charAt(0) == "0") {
+         validChars = "01234567";
+         startFrom = 1;
+      } else if (argvalue.charAt(0) == "-") {
+          startFrom = 1;
+      }
+
+      for (var n = startFrom; n < argvalue.length; n++) {
+          if (validChars.indexOf(argvalue.substring(n, n+1)) == -1) return false;
+      }
+      return true;
+  }
+
+  /**
+   * Check a value only contains valid decimal digits
+   * @param argvalue The value to check.
+   */
+  function jcv_isDecimalDigits(argvalue) {
+      argvalue = argvalue.toString();
+      var validChars = "0123456789";
+
+      var startFrom = 0;
+      if (argvalue.charAt(0) == "-") {
+          startFrom = 1;
+      }
+
+      for (var n = startFrom; n < argvalue.length; n++) {
+          if (validChars.indexOf(argvalue.substring(n, n+1)) == -1) return false;
+      }
+      return true;
+  }
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+    /*$RCSfile: validateShort.js,v $ $Rev: 478676 $ $Date: 2006-11-23 21:35:44 +0000 (Thu, 23 Nov 2006) $ */
+    /**
+    *  Check to see if fields are a valid short.
+    * Fields are not checked if they are disabled.
+    *
+    * @param form The form validation is taking place on.
+    */
+    function validateShort(form) {
+        var bValid = true;
+        var focusField = null;
+        var i = 0;
+        var fields = new Array();
+ 
+        var oShort = eval('new ' + jcv_retrieveFormName(form) +  '_ShortValidations()');
+
+        for (var x in oShort) {
+            if (!jcv_verifyArrayElement(x, oShort[x])) {
+                continue;
+            }
+            var field = form[oShort[x][0]];
+            if (!jcv_isFieldPresent(field)) {
+              continue;
+            }
+
+            if ((field.type == 'hidden' ||
+                field.type == 'text' ||
+                field.type == 'textarea' ||
+                field.type == 'select-one' ||
+                field.type == 'radio')) {
+
+                var value = '';
+                // get field's value
+                if (field.type == "select-one") {
+                    var si = field.selectedIndex;
+                    if (si >= 0) {
+                        value = field.options[si].value;
+                    }
+                } else {
+                    value = field.value;
+                }
+
+                if (value.length > 0) {
+                    if (!jcv_isDecimalDigits(value)) {
+                        bValid = false;
+                        if (i == 0) {
+                            focusField = field;
+                        }
+                        fields[i++] = oShort[x][1];
+
+                    } else {
+
+                        var iValue = parseInt(value, 10);
+                        if (isNaN(iValue) || !(iValue >= -32768 && iValue <= 32767)) {
+                            if (i == 0) {
+                                focusField = field;
+                            }
+                            fields[i++] = oShort[x][1];
+                            bValid = false;
+                        }
+                   }
+               }
+            }
+        }
+        if (fields.length > 0) {
+           jcv_handleErrors(fields, focusField);
+        }
+        return bValid;
+    }
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+    /*$RCSfile: validateCreditCard.js,v $ $Rev: 478676 $ $Date: 2006-11-23 21:35:44 +0000 (Thu, 23 Nov 2006) $ */
+    /**
+    * Check to see if fields are a valid creditcard number based on Luhn checksum.
+    * Fields are not checked if they are disabled.
+    * @param form The form validation is taking place on.
+    */
+    function validateCreditCard(form) {
+        var bValid = true;
+        var focusField = null;
+        var i = 0;
+        var fields = new Array();
+ 
+        var oCreditCard = eval('new ' + jcv_retrieveFormName(form) +  '_creditCard()');
+
+        for (var x in oCreditCard) {
+            if (!jcv_verifyArrayElement(x, oCreditCard[x])) {
+                continue;
+            }
+            var field = form[oCreditCard[x][0]];
+            if (!jcv_isFieldPresent(field)) {
+              continue;
+            }
+            if ((field.type == 'text' ||
+                 field.type == 'textarea') &&
+                (field.value.length > 0)) {
+                if (!jcv_luhnCheck(field.value)) {
+                    if (i == 0) {
+                        focusField = field;
+                    }
+                    fields[i++] = oCreditCard[x][1];
+                    bValid = false;
+                }
+            }
+        }
+        if (fields.length > 0) {
+            jcv_handleErrors(fields, focusField);
+        }
+        return bValid;
+    }
+
+    /**
+     * Checks whether a given credit card number has a valid Luhn checksum.
+     * This allows you to spot most randomly made-up or garbled credit card numbers immediately.
+     * Reference: http://www.speech.cs.cmu.edu/~sburke/pub/luhn_lib.html
+     */
+    function jcv_luhnCheck(cardNumber) {
+        if (jcv_isLuhnNum(cardNumber)) {
+            var no_digit = cardNumber.length;
+            var oddoeven = no_digit & 1;
+            var sum = 0;
+            for (var count = 0; count < no_digit; count++) {
+                var digit = parseInt(cardNumber.charAt(count));
+                if (!((count & 1) ^ oddoeven)) {
+                    digit *= 2;
+                    if (digit > 9) digit -= 9;
+                };
+                sum += digit;
+            };
+            if (sum == 0) return false;
+            if (sum % 10 == 0) return true;
+        };
+        return false;
+    }
+
+    function jcv_isLuhnNum(argvalue) {
+        argvalue = argvalue.toString();
+        if (argvalue.length == 0) {
+            return false;
+        }
+        for (var n = 0; n < argvalue.length; n++) {
+            if ((argvalue.substring(n, n+1) < "0") ||
+                (argvalue.substring(n,n+1) > "9")) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+    /*$RCSfile: validateEmail.js,v $ $Rev: 478676 $ $Date: 2006-11-23 21:35:44 +0000 (Thu, 23 Nov 2006) $ */
+    /**
+    * Check to see if fields are a valid email address.
+    * Fields are not checked if they are disabled.
+    * @param form The form validation is taking place on.
+    */
+    function validateEmail(form) {
+        var bValid = true;
+        var focusField = null;
+        var i = 0;
+        var fields = new Array();
+
+        var oEmail = eval('new ' + jcv_retrieveFormName(form) +  '_email()');
+
+        for (var x in oEmail) {
+            if (!jcv_verifyArrayElement(x, oEmail[x])) {
+                continue;
+            }
+            var field = form[oEmail[x][0]];
+            if (!jcv_isFieldPresent(field)) {
+              continue;
+            }
+            if ((field.type == 'hidden' || 
+                 field.type == 'text' ||
+                 field.type == 'textarea') &&
+                (field.value.length > 0)) {
+                if (!jcv_checkEmail(field.value)) {
+                    if (i == 0) {
+                        focusField = field;
+                    }
+                    fields[i++] = oEmail[x][1];
+                    bValid = false;
+                }
+            }
+        }
+        if (fields.length > 0) {
+            jcv_handleErrors(fields, focusField);
+        }
+        return bValid;
+    }
+
+    /**
+     * Reference: Sandeep V. Tamhankar (stamhankar@hotmail.com),
+     * http://javascript.internet.com
+     */
+    function jcv_checkEmail(emailStr) {
+        if (emailStr.length == 0) {
+            return true;
+        }
+        // TLD checking turned off by default
+        var checkTLD=0;
+        var knownDomsPat=/^(com|net|org|edu|int|mil|gov|arpa|biz|aero|name|coop|info|pro|museum)$/;
+        var emailPat=/^(.+)@(.+)$/;
+        var specialChars="\\(\\)><@,;:\\\\\\\"\\.\\[\\]";
+        var validChars="\[^\\s" + specialChars + "\]";
+        var quotedUser="(\"[^\"]*\")";
+        var ipDomainPat=/^\[(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})\]$/;
+        var atom=validChars + '+';
+        var word="(" + atom + "|" + quotedUser + ")";
+        var userPat=new RegExp("^" + word + "(\\." + word + ")*$");
+        var domainPat=new RegExp("^" + atom + "(\\." + atom +")*$");
+        var matchArray=emailStr.match(emailPat);
+        if (matchArray==null) {
+            return false;
+        }
+        var user=matchArray[1];
+        var domain=matchArray[2];
+        for (i=0; i<user.length; i++) {
+            if (user.charCodeAt(i)>127) {
+                return false;
+            }
+        }
+        for (i=0; i<domain.length; i++) {
+            if (domain.charCodeAt(i)>127) {
+                return false;
+            }
+        }
+        if (user.match(userPat)==null) {
+            return false;
+        }
+        var IPArray=domain.match(ipDomainPat);
+        if (IPArray!=null) {
+            for (var i=1;i<=4;i++) {
+                if (IPArray[i]>255) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        var atomPat=new RegExp("^" + atom + "$");
+        var domArr=domain.split(".");
+        var len=domArr.length;
+        for (i=0;i<len;i++) {
+            if (domArr[i].search(atomPat)==-1) {
+                return false;
+            }
+        }
+        if (checkTLD && domArr[domArr.length-1].length!=2 && 
+            domArr[domArr.length-1].search(knownDomsPat)==-1) {
+            return false;
+        }
+        if (len<2) {
+            return false;
+        }
+        return true;
+    }
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+    /*$RCSfile: validateMask.js,v $ $Rev: 478676 $ $Date: 2006-11-23 21:35:44 +0000 (Thu, 23 Nov 2006) $ */
+    /**
+    * Check to see if fields are a valid using a regular expression.
+    * Fields are not checked if they are disabled.
+    * @param form The form validation is taking place on.
+    */
+    function validateMask(form) {
+        var isValid = true;
+        var focusField = null;
+        var i = 0;
+        var fields = new Array();
+ 
+        var oMasked = eval('new ' + jcv_retrieveFormName(form) +  '_mask()');      
+        for (var x in oMasked) {
+            if (!jcv_verifyArrayElement(x, oMasked[x])) {
+                continue;
+            }
+            var field = form[oMasked[x][0]];
+            if (!jcv_isFieldPresent(field)) {
+              continue;
+            }
+
+            if ((field.type == 'hidden' ||
+                field.type == 'text' ||
+                 field.type == 'textarea' ||
+				 field.type == 'file') &&
+                 (field.value.length > 0)) {
+
+                if (!jcv_matchPattern(field.value, oMasked[x][2]("mask"))) {
+                    if (i == 0) {
+                        focusField = field;
+                    }
+                    fields[i++] = oMasked[x][1];
+                    isValid = false;
+                }
+            }
+        }
+
+        if (fields.length > 0) {
+           jcv_handleErrors(fields, focusField);
+        }
+        return isValid;
+    }
+
+    function jcv_matchPattern(value, mask) {
+       return mask.exec(value);
+    }
+
+
+//End --> 
+</script>
+
+
+
+<script language="javascript">
+window.name ='jbnfRsGbgC0JCVdAam'
+var clicked = false;
+var Marque = "AP";
+function validateLoginGreyForm(form, e) {
+e.preventDefault();
+var retVal = validateLoginForm(form);
+if (retVal) {
+showCaptcha();
+}
+}
+function JustOneClick(form) {
+if (!clicked) {
+clicked=true;
+var bt = document.getElementById("btsubmit");
+if (bt) {
+bt.disabled = true;
+}
+return true;
+} else {
+timer=setTimeout('timeOutResetClicked()',30000)
+return false;
+}
+}
+function showCaptcha() {
+var username = $("#username").val();
+var msg =  STrim(document.getElementById("invalid.user").innerHTML);
+$.post( "/elapseTime", {'username':username})
+.success(function(data) {
+if(data.showCaptcha != null){
+if(data.showCaptcha) {
+grecaptcha.reset();
+grecaptcha.execute();
+} else {
+document.getElementById('loginForm').submit();
+}
+} else {
+if(data.status == 'error') {
+alert(msg);
+} else {
+console.log("Unhandled elapsed time scenario");
+}
+}
+})
+.error(function(data) {
+console.log("Elapsed time check failed.");
+document.getElementById('loginForm').submit();
+});
+}
+function triggerCaptcha() {
+grecaptcha.reset();
+grecaptcha.execute();
+}
+function onChallengeSubmit(token) {
+$.post("/recaptcha", {'recaptchaToken': token},
+function(response) {
+console.log(response);
+if(response.recaptchaVerified != null && response.recaptchaVerified == true) {
+$('#recaptchaChallengeTaken').val('true');
+document.getElementById('loginForm').submit();
+return;
+}
+console.log("Invalid captcha selection");
+}
+);
+}
+function timeOutResetClicked() {
+clicked = false;
+var bt = document.getElementById("btsubmit");
+if (bt) {
+bt.disabled = false;
+}
+}
+var locale=Get_Cookie("CodeLanguePaysOI");
+function getLink(prefix, suffix) {
+if ((prefix.indexOf("PLMS")!=-1) && (Marque=="AC")) {
+prefix = prefix.replace("PLMS","CLMS");
+}
+
+document.write("<a href=\""+prefix+"null"+suffix+"\" target=\"blank\">");
+}
+function getLinkLocale(prefix,suffix) {
+if (locale==null) {
+locale="fr_FR";
+}
+document.write("<a href=\""+prefix+locale+suffix+"\" target=\"blank\">");
+}
+function checkCookieLangue() {
+if(Get_Cookie("CodeLanguePaysOI")==null) {
+setCookieLangue("fr","FR");
+}
+}
+// RECUPERE LE COOKIE DE LOGIN
+function getCookieLogin() {
+var um="um=";
+var ps="ps=";
+var ca = document.cookie.split(';');
+var flag =false;
+var connectToGigya = 'true';
+
+if (connectToGigya == "true") {
+submitWithRequest();
+console.log("Submited with request.");
+}
+for (var i = 0; i < ca.length; i++) {
+var c = ca[i];
+while (c.charAt(0) == ' ')
+c = c.substring(1, c.length);
+if (c.indexOf(um) == 0) {
+document.getElementById('username').value = c.substring(um.length, c.length);
+flag = true;
+} else if (c.indexOf(ps) == 0) {
+//replaceT(document.getElementById('password'));
+document.getElementById('password').value = c.substring(ps.length, c.length);
+flag = true;
+}
+}
+if (flag) {
+document.loginForm.submit();
+}
+}
+// supprime le cookie de login
+function DeleteCookie() {
+var exp = new Date();
+document.cookie = 'um=0 ; expires=Mon, 1 Mar 2010 00:00:00 UTC; path=/';
+document.cookie = 'ps=0 ; expires=Mon, 1 Mar 2010 00:00:00 UTC; path=/';
+}
+function submitWithRequest() {
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+if (this.readyState == 4) {
+var resp = xhttp.getResponseHeader("SAMLRequest");
+var respl = xhttp.getResponseHeader("SAMLLogoutRequest");
+console.log(resp);
+document.getElementById('SAMLRequest').value = resp;
+sessionStorage.setItem('SAMLLogoutRequest',respl);
+document.getElementById('ui_locales').value = document.getElementById('language').value.substring(0, 2);
+console.log(document.getElementById('ui_locales').value);
+}
+};
+xhttp.open("POST", "/getSamlReq", false); //OIN-3076 fix
+xhttp.send();
+//OIN-3076 fix start
+if (!document.getElementById('SAMLRequest').value || document.getElementById('SAMLRequest').value == "") {
+document.getElementById('conx-btn').style.display = 'none';
+location.reload(true);
+}
+//OIN-3076 fix end
+}
+</script>
+<!-- CAP31196 Standardized Navigation Changes start -->
+<script language="javascript">
+var brand;
+var list = '';
+var displayBtns = true;
+var listTemp = {};
+var localeTemp = '';
+let i = 0;
+var parentLevels = [];
+var newTabLabel="";
+var closeLabel="";
+//function to determine whether to display the menu to user
+function displayMenu() {
+$(document).ready(function() {
+//OIN-2956 fix
+sessionStorage.setItem('country',Get_Cookie("PSACountry"));
+if (document.getElementById("fle3").children[1].href.split('/')[7]) {
+localeTemp = document.getElementById("fle3").children[1].href.split('/')[7];
+$.ajax({
+url : '/do/login' + '?action=SHOW_STD_MENU_IN_LOGIN_PAGE',
+type : 'GET',
+success : function(response) {
+displayBtns = response.showSTDMenuInLoginPage;
+newTabLabel = response.newTabLabel;
+closeLabel = response.closeLabel;
+if (displayBtns) {
+document.getElementById("nav").style.display = '';
+} else {
+document.getElementById("nav").style.display = 'none';
+}
+if (sessionStorage.getItem('loginBrand') != null){
+if(sessionStorage.getItem('wasInLoginStdNavPage') == 'true'){
+mySlider();
+}
+else{
+document.getElementById('rightArrowBtn').style.display = '';
+}
+}
+},
+error : function(response) {
+alert(Erreur);
+},
+data : {
+"Country" : sessionStorage.getItem('country'), "locale" : localeTemp
+}
+});
+}
+});
+}
+//function to get the selected brand
+function currentBrand(selectedBrand) {
+sessionStorage.removeItem('loginListIndex');
+sessionStorage.setItem('wasInLoginStdNavPage', 'true');
+var brands = [ 'peugeotBrand', 'citroenBrand', 'dsBrand', 'ovBrand', 'olegacyBrand', 'defaultBrand' ];
+if (brands.indexOf(selectedBrand) > -1) {
+switch (selectedBrand) {
+case 'peugeotBrand':
+sessionStorage.setItem('loginBrand', 'AP');
+break;
+case 'citroenBrand':
+sessionStorage.setItem('loginBrand', 'AC');
+break;
+case 'dsBrand':
+sessionStorage.setItem('loginBrand', 'DS');
+break;
+case 'ovBrand':
+sessionStorage.setItem('loginBrand', 'OV');
+break;
+case 'olegacyBrand':
+sessionStorage.setItem('loginBrand', 'OL');
+break;
+default:
+sessionStorage.setItem('loginBrand', 'Default');
+}
+if (document.getElementById('leftArrowBtn').style.display === 'none') {
+mySlider();
+}
+else{
+loadList();
+}
+}
+}
+// function to check whether two usecase levels are sibling or not
+function siblingKeys(k1, k2) {
+var arrK1 = k1.split('.');
+var arrK2 = k2.split('.');
+var x = (arrK1.length) - 2;
+while (x >= 0) {
+if (parseInt(arrK1[x]) == parseInt(arrK2[x])) {
+x--;
+continue;
+} else {
+return false;
+}
+}
+return true;
+}
+//function to sort the usecase levels
+function sortLevels(a, b) {
+if (a.split('.')[0] == "Default" || b.split('.')[0] == "Default") {
+if (a.split('.')[0] == "Default" && b.split('.')[0] == "Default") {
+return 0;
+} else if (a.split('.')[0] == "Default") {
+return 1;
+} else {
+return -1;
+}
+} else if (parseInt(a.split('.')[0]) === parseInt(b.split('.')[0])) {
+if ((parseInt(a.split('.')[1]) === "" || !parseInt(a.split('.')[1])) && (parseInt(b.split('.')[1]) === "" || !parseInt(b.split('.')[1]))) {
+return 0;
+} else if (parseInt(a.split('.')[1]) === "" || !parseInt(a.split('.')[1])) {
+return -1;
+} else if (parseInt(b.split('.')[1]) === "" || !parseInt(b.split('.')[1])) {
+return 1;
+} else {
+return compareKeys(a.substring(a.indexOf('.') + 1), b.substring(b.indexOf('.') + 1));
+}
+} else {
+return parseInt(a.split('.')[0]) - parseInt(b.split('.')[0]);
+}
+}
+//function to compare usecase levels
+function compareKeys(k1, k2) {
+if (parseInt(k1.split('.')[0]) == parseInt(k2.split('.')[0])) {
+if ((parseInt(k1.split('.')[1]) === "" || !parseInt(k1.split('.')[1]))
+&& (parseInt(k2.split('.')[1]) === "" || !parseInt(k2.split('.')[1]))) {
+return 0;
+} else if (parseInt(k1.split('.')[1]) === "" || !parseInt(k1.split('.')[1])) {
+return -1;
+} else if (parseInt(k2.split('.')[1]) === "" || !parseInt(k2.split('.')[1])) {
+return 1;
+} else {
+return compareKeys(k1.substring(k1.indexOf('.') + 1), k2.substring(k2.indexOf('.') + 1));
+}
+} else {
+return parseInt(k1.split('.')[0]) - parseInt(k2.split('.')[0]);
+}
+}
+//function to load usecase list
+function loadList() {
+i = 0;
+listTemp = {};
+list = '';
+document.getElementById('contentDiv').style.display = 'none';
+document.getElementById('popBtn').innerHTML = '';
+$
+.ajax({
+url : '/do/login' + '?action=SHOW_AESTAT_FILES_RC_IN_LOGIN_PAGE',
+type : 'GET',
+success : function(response) {
+listTemp = response.AEStatFileJsonObj;
+listTemp.sort(function(a, b) {
+return sortLevels(a.usecaseLevel, b.usecaseLevel);
+});
+if (listTemp) {
+while (i < listTemp.length) {
+let level = listTemp[i].usecaseLevel;
+let iLevel = level.split('.').length;
+let title = listTemp[i].title;
+let ruleId = listTemp[i].ruleId;
+list += '<li id="'+ruleId+'_'+level+'_'+i+'" title="'+level+' '+title+'" style="cursor: pointer;"><div style="display:inline;">&nbsp; &nbsp;</div><span onclick="renderHtml(\''
++ level + '\',\'' + i + '\',\'' + ruleId + '\')">' + level + ' ' + title + '</span>';
+i += 1;
+if (i < listTemp.length) {
+let nLevel = listTemp[i].usecaseLevel;
+let inLevel = nLevel.split('.').length;
+if (inLevel > iLevel && (nLevel.indexOf(level) == 0)) {
+parentLevels.push(level);
+list += recList();
+}
+}
+list += '</li>';
+}
+}
+document.getElementById("show").innerHTML = '<ul class="collapse" id="myList">' + list + '</ul>';
+collapseList();
+},
+error : function(response) {
+alert(Erreur);
+},
+data : {
+"brandCode" : sessionStorage.getItem('loginBrand'),
+"locale" : localeTemp,
+"Country" : sessionStorage.getItem('country')
+}
+});
+}
+let branch = 0;
+//function to create html sub list code
+function recList() {
+let subList = '<ul style="display:none;">';
+branch++;
+while (i < listTemp.length) {
+let level = listTemp[i].usecaseLevel;
+let iLevel = level.split('.').length;
+let title = listTemp[i].title;
+let ruleId = listTemp[i].ruleId;
+subList += '<li id="'+ruleId+'_'+level+'_'+i+'" title="'+level+' '+title+'" style="cursor: pointer;"><div style="display:inline;">&nbsp; &nbsp;</div><span onclick="renderHtml(\''
++ level + '\',\'' + i + '\',\'' + ruleId + '\')">' + level + ' ' + title + '</span>';
+;
+i += 1;
+if (i < listTemp.length) {
+let nLevel = listTemp[i].usecaseLevel;
+let inLevel = nLevel.split('.').length;
+if (inLevel == iLevel && !siblingKeys(level, nLevel)) {
+if (branch > 0) {
+subList += '</li></ul>';
+branch--;
+}
+return subList;
+break;
+} else if (inLevel < iLevel) {
+var y = (parentLevels.length) - 1;
+while (y >= 0) {
+var parent = parentLevels[y];
+var iParent = parent.split('.').length;
+if (inLevel == iParent) {
+subList += '</li></ul>';
+branch--;
+parentLevels.splice(y, 1);
+return subList;
+break;
+} else if (inLevel > iParent) {
+if (nLevel.indexOf(parent) == 0) {
+break;
+} else {
+subList += '</li></ul>';
+branch--;
+return subList;
+break;
+}
+} else if (inLevel < iParent) {
+subList += '</li></ul>';
+branch--;
+parentLevels.splice(y, 1);
+y--;
+continue;
+}
+}
+} else if (inLevel > iLevel) {
+if (nLevel.indexOf(level) == 0) {
+parentLevels.push(level);
+subList += recList();
+} else {
+var y = (parentLevels.length) - 1;
+while (y >= 0) {
+var parent = parentLevels[y];
+var iParent = parent.split('.').length;
+if (inLevel == iParent && !siblingKeys(parent, nLevel)) {
+subList += '</li></ul>';
+branch--;
+parentLevels.splice(y, 1);
+return subList;
+break;
+} else if (inLevel > iParent) {
+if (nLevel.indexOf(parent) == 0) {
+break;
+} else {
+subList += '</li></ul>';
+branch--;
+return subList;
+break;
+}
+} else if (inLevel < iParent) {
+subList += '</li></ul>';
+branch--;
+parentLevels.splice(y, 1);
+y--;
+continue;
+}
+}
+}
+}
+}
+}
+return subList;
+}
+// function to render the cooresponding html to the respective div
+function renderHtml(level, i, ruleId) {
+let id=ruleId+"_"+level+"_"+i;
+sessionStorage.setItem('loginListIndex', id);
+/* changes for OIN-2648 */
+if(document.getElementsByClassName("selectedUC")[0]){
+document.getElementsByClassName("selectedUC")[0].classList.remove("selectedUC");
+}
+document.getElementById(id).classList.add("selectedUC");
+document.getElementById("hiddenTag").innerHTML = 'RMI_RuleID=' + ruleId;
+document.getElementById('contentDiv').style.display = '';
+document.getElementById('serviceFrameSend').src = listTemp[i].fileToDisplay;
+document.getElementById('popBtn').innerHTML = '<button class="popupBtn" style="background-color:#0076a8;color:#FFF;border:none;cursor: pointer;border-radius: 4px;" onclick="renderAEStateHtmlInNewTab(\''
++ level + '\',\'' + ruleId + '\',\'' + i + '\')">' + newTabLabel + '</button>';
+}
+//function for th arrow button
+function mySlider() {
+if (sessionStorage.getItem('loginBrand') != null) {
+if (document.getElementById('leftArrowBtn').style.display == 'none') {
+sessionStorage.setItem('wasInLoginStdNavPage', 'true');
+loadList();
+document.getElementById('global').style.display = 'none';
+document.getElementById('rightArrowBtn').style.display = 'none';
+document.getElementById('list').style.display = '';
+document.getElementById('leftArrowBtn').style.display = '';
+} else {
+sessionStorage.setItem('wasInLoginStdNavPage', 'false');
+document.getElementById('global').style.display = '';
+document.getElementById('rightArrowBtn').style.display = '';
+document.getElementById('list').style.display = 'none';
+document.getElementById('leftArrowBtn').style.display = 'none';
+}
+}
+}
+//function to trigger click on last selected usecase
+function triggerClick(){
+if(sessionStorage.getItem('loginListIndex')!=null){
+var selected=sessionStorage.getItem('loginListIndex');
+let selectedLevel=selected.split('_')[1];
+document.querySelectorAll(".collapse ul").forEach(function(j)  {
+let jLevel=j.previousSibling.parentElement.id.split('_')[1];
+if(selectedLevel.indexOf(jLevel) == 0){
+j.previousSibling.parentElement.children[1].click();}
+});
+document.getElementById(selected).children[1].click();
+document.getElementById(selected).children[0].click();
+}
+}
+//function make collapsing list
+function collapseList() {
+NodeList.prototype.forEach = Array.prototype.forEach;
+document.querySelectorAll(".collapse ul").forEach(function(i) {
+let plusMinus = i.previousSibling.parentElement.children[0];
+let levelTitle = i.previousSibling.parentElement.children[1];
+if (i.style.display == 'none') {
+plusMinus.innerHTML = '+&nbsp;';
+} else {
+plusMinus.innerHTML = '- &nbsp;';
+}
+plusMinus.onclick = function() {
+if (i.style.display == 'none') {
+let iLevel = i.previousSibling.parentElement.id.split('_')[1];
+document.querySelectorAll(".collapse ul").forEach(function(j) {
+let jLevel = j.previousSibling.parentElement.id.split('_')[1];
+if (iLevel.indexOf(jLevel) != 0) {
+j.previousSibling.parentElement.children[0].innerHTML = '+&nbsp;';
+j.style.display = 'none';
+}
+});
+plusMinus.innerHTML = '- &nbsp;';
+i.style.display = '';
+} else {
+plusMinus.innerHTML = '+&nbsp;';
+i.style.display = 'none';
+}
+}
+levelTitle.onclick = function() {
+let ruleId = i.previousSibling.parentElement.id.split('_')[0];
+let level = i.previousSibling.parentElement.id.split('_')[1];
+let index = i.previousSibling.parentElement.id.split('_')[2];
+if (i.style.display == 'none') {
+renderHtml(level, index, ruleId);
+document.querySelectorAll(".collapse ul").forEach(function(j) {
+let jLevel = j.previousSibling.parentElement.id.split('_')[1];
+if (level.indexOf(jLevel) != 0) {
+j.previousSibling.parentElement.children[0].innerHTML = '+&nbsp;';
+j.style.display = 'none';
+}
+});
+plusMinus.innerHTML = '- &nbsp;';
+i.style.display = '';
+} else {
+renderHtml(level, index, ruleId);
+plusMinus.innerHTML = '+&nbsp;';
+i.style.display = 'none';
+}
+}
+});
+triggerClick();
+}
+//function to render the html in new tab
+function renderAEStateHtmlInNewTab(level, ruleId, i) {
+let html = '<meta name="description" content="" />'
++ '<meta name="keywords" content="" />'
++ '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />'
++ '<meta http-equiv="Content-Script-Type" content="text/javascript" />'
++ '<meta http-equiv="Content-Style-Type" content="text/css" />'
++ '<meta http-equiv="imagetoolbar" content="no" />'
++ '<meta name="viewport" content="width=device-width, initial-scale=1" />'
++ '<div style="background-color:#0076a8; color:#FFF; border-radius:6px; height: 5vh; margin:0px; width:97%; padding:15px;"><h3 style="margin-left: 30px; white-space: nowrap; display: inline; text-overflow: ellipsis; display: inline-block; width: 85%; margin: 5px; text-overflow: ellipsis; overflow: hidden; vertical-align: middle;">';
+html += document.getElementById(ruleId + '_' + level + '_' + i).children[1].innerHTML;
+html += '</h2><span onclick="window.close()" style="font-weight: bold; color: black; float: right; margin-right:10px;cursor: pointer;">X</span></div>'
++ ' <div style="border: 2px solid #0076A8; border-radius: 18px; height:86vh; width:99%; overflow:auto;">';
+html += document.getElementById('content').innerHTML;
+html += '<button style="background-color:#0076a8;color:#FFF;border:none;border-radius: 4px;position: fixed; top: 90vh; left:50%; z-index: 1;cursor: pointer;" onclick="window.close()"><h4 style="padding:5px;margin:0px;">'
++ closeLabel + '</h3></button></div>';
+var newTab = window.open();
+newTab.document.write(html);
+}
+</script>
+<style>
+/* changes for OIN-2648 */
+.selectedUC {
+color: red !important;
+}
+.collapse, .collapse ul {
+list-style-type: none;
+padding-left: 10px;
+}
+.collapse li {
+font-weight: bold;
+color: #675B5B;
+vertical-align: middle;
+word-break: break-word;
+padding: 5px;
+}
+.collapse li > span:hover {
+color: #0076a8;
+}
+.toggle {
+cursor: pointer;
+}
+.container {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 12px;
+color: #494B4D;
+padding: 110px 0px 65px;
+min-height: 650px;
+text-align: -webkit-left;
+margin-left: 10px;
+margin-right: 30px;
+margin-bottom: 50px;
+}
+.rows {
+display: block;
+width: 100%;
+clear: both;
+}
+.col-4 {
+float: left;
+width: calc(( 100%/ 12 * 4) - 20px);
+margin-right: 20px;
+}
+#show {
+width: 100%;
+height: 70vh;
+overflow-y: auto;
+margin-bottom: 80px;
+}
+/* changes for OIN-2572 */
+/* Media query for screens smaller than 768px */
+@media (max-width: 768px) {
+#show {
+height: 35vh; /* Adjust the height for smaller screens */
+margin-bottom: 40px; /* Adjust the margin for smaller screens */
+}
+}
+.col-8 {
+float: left;
+width: calc(( 100%/ 12 * 8) - 20px);
+}
+#content {
+width: 98%;
+height: 95%;
+font-size: 12px;
+line-height: 1.5;
+margin: 10px;
+}
+.popupBtn {
+margin: 15px;
+margin-left: 35%;
+width: 250px;
+padding: 5px;
+}
+#nav {
+z-index: 50;
+position: fixed;
+top: 70px;
+left: 10px;
+font-family: Arial, Helvetica, sans-serif;
+background-color: #FFFFFF;
+font-weight: bold;
+font-size: 12px;
+text-align: left;
+text-decoration: none;
+display: block;
+color: #675B5B;
+}
+#nav a:link {
+color: #FFF;
+text-decoration: none;
+}
+#sub li:hover {
+background-color: red;
+}
+#nav ul li {
+padding: 0px;
+list-style: none;
+cursor: pointer;
+}
+#nav ul li ul li {
+border-bottom: 1px solid #FFFFFF;
+padding: 5px;
+list-style: none;
+cursor: pointer;
+}
+.first {
+border-right: 1px solid #000;
+padding: 10px 17px 10px 11px;
+}
+#nav li ul li, #nav li:hover ul li, #nav li.sfhover ul li, #nav #menu li.highlight li {
+color: #FFF;
+background-color: #ACA39A;
+}
+#nav li:hover ul li:hover, #nav li.sfhover ul li.sfhover, #nav #menu li.highlight li.highlight {
+color: #FFF;
+background-color: #0076A8;
+}
+#nav li:hover, #nav li.sfhover {
+color: #0076A8;
+}
+#nav li.highlight {
+background-color: #F4F4F4;
+}
+#sub {
+display: none
+}
+#nav:hover #menu  #sub {
+display: block;
+}
+</style>
+<!-- CAP31196 Standardized Navigation Changes end -->
+</head>
+<body onload="getCookieLogin(); displayMenu();">
+<!--CORPS DU FORMULAIRE-->
+
+<div id="page" class="login">
+<div id="halo-footer"></div>
+
+<div id="footer">
+
+<div id="langBox">
+
+<div id="lg"><img id ="flag" src ="/ressource/9.17.11/images/bandiere/fr.gif" align="absmiddle"/>&nbsp;
+<span id="libelleflag_g"></span><span id="libelleflag">Français (France)</span><span id="libelleflag_d"></span>
+<div id="Lang"> <ul>
+<form action="/do/changerParametres" styleClass="messenger" name="changementLangueForm">
+<li> <a id='aa_BB' href="javascript:validChoixLangue('aa_BB')">Русский (Барбадос)</a></i><li> <a id='am_ET' href="javascript:validChoixLangue('am_ET')">አማርኛ (ኢትዮጵያ)</a></i><li> <a id='bg_BG' href="javascript:validChoixLangue('bg_BG')">Български (Bulgarie)</a></i><li> <a id='cs_CZ' href="javascript:validChoixLangue('cs_CZ')">Čeština (Česká republika)</a></i><li> <a id='da_DK' href="javascript:validChoixLangue('da_DK')">Dansk (Danmark)</a></i><li> <a id='de_AT' href="javascript:validChoixLangue('de_AT')">Deutsch (Österreich)</a></i><li> <a id='de_CH' href="javascript:validChoixLangue('de_CH')">Deutsch (Schweiz)</a></i><li> <a id='de_DE' href="javascript:validChoixLangue('de_DE')">Deutsch (Deutschland)</a></i><li> <a id='el_CY' href="javascript:validChoixLangue('el_CY')">Grec(Chypre)</a></i><li> <a id='el_GR' href="javascript:validChoixLangue('el_GR')">Ελληνικά (Ελλάδα)</a></i><li> <a id='en_AU' href="javascript:validChoixLangue('en_AU')">English (Australia)</a></i><li> <a id='en_DE' href="javascript:validChoixLangue('en_DE')">English (Germany)</a></i><li> <a id='en_GB' href="javascript:validChoixLangue('en_GB')">English (United Kingdom)</a></i><li> <a id='en_GY' href="javascript:validChoixLangue('en_GY')">English (Guyana)</a></i><li> <a id='en_ID' href="javascript:validChoixLangue('en_ID')">English (Indonesia)</a></i><li> <a id='en_IE' href="javascript:validChoixLangue('en_IE')">English(Eire)</a></i><li> <a id='en_IN' href="javascript:validChoixLangue('en_IN')">English (India)</a></i><li> <a id='en_JP' href="javascript:validChoixLangue('en_JP')">en_JP</a></i><li> <a id='en_LT' href="javascript:validChoixLangue('en_LT')">English (Lithuania)</a></i><li> <a id='en_MT' href="javascript:validChoixLangue('en_MT')">English(Malta)</a></i><li> <a id='en_PK' href="javascript:validChoixLangue('en_PK')">English (Pakistan)</a></i><li> <a id='en_SG' href="javascript:validChoixLangue('en_SG')">English (Singapore)</a></i><li> <a id='en_SW' href="javascript:validChoixLangue('en_SW')">English (Suede)</a></i><li> <a id='en_US' href="javascript:validChoixLangue('en_US')">English (United States)</a></i><li> <a id='en_ZA' href="javascript:validChoixLangue('en_ZA')">English (South Africa)</a></i><li> <a id='es_AR' href="javascript:validChoixLangue('es_AR')">Español (Argentina)</a></i><li> <a id='es_CL' href="javascript:validChoixLangue('es_CL')">Español (Chile)</a></i><li> <a id='es_ES' href="javascript:validChoixLangue('es_ES')">Español (España)</a></i><li> <a id='es_FR' href="javascript:validChoixLangue('es_FR')">Español (Francia)</a></i><li> <a id='es_MX' href="javascript:validChoixLangue('es_MX')">Español (Mexico)</a></i><li> <a id='es_UY' href="javascript:validChoixLangue('es_UY')">Espagnol (Uruguay)</a></i><li> <a id='et_EE' href="javascript:validChoixLangue('et_EE')">Eesti (Eesti)</a></i><li> <a id='fi_FI' href="javascript:validChoixLangue('fi_FI')">Suomi (Suomi)</a></i><li> <a id='fr_BE' href="javascript:validChoixLangue('fr_BE')">Français (Belgique)</a></i><li> <a id='fr_CH' href="javascript:validChoixLangue('fr_CH')">Français (Suisse)</a></i><li> <a id='fr_DE' href="javascript:validChoixLangue('fr_DE')">Français (Allemagne)</a></i><li> <a id='fr_DK' href="javascript:validChoixLangue('fr_DK')">Français (Danemark)</a></i><li> <a id='fr_DZ' href="javascript:validChoixLangue('fr_DZ')">Français (Algérie)</a></i><li> <a id='fr_FR' href="javascript:validChoixLangue('fr_FR')">Français (France)</a></i><li> <a id='fr_GP' href="javascript:validChoixLangue('fr_GP')">Français (Guadeloupe)</a></i><li> <a id='fr_IN' href="javascript:validChoixLangue('fr_IN')">Français (Inde)</a></i><li> <a id='fr_MA' href="javascript:validChoixLangue('fr_MA')">Français(Maroc)</a></i><li> <a id='fr_MQ' href="javascript:validChoixLangue('fr_MQ')">Français (Martinique)</a></i><li> <a id='fr_RE' href="javascript:validChoixLangue('fr_RE')">Français (La Réunion)</a></i><li> <a id='fr_TN' href="javascript:validChoixLangue('fr_TN')">Français(Tunisie)</a></i><li> <a id='ha_HT' href="javascript:validChoixLangue('ha_HT')">Hausa (Haïti)</a></i><li> <a id='hr_HR' href="javascript:validChoixLangue('hr_HR')">Hrvatski (Hrvatska)</a></i><li> <a id='hr_RS' href="javascript:validChoixLangue('hr_RS')">Croate(Serbie)</a></i><li> <a id='ht_HT' href="javascript:validChoixLangue('ht_HT')">Haitian Creole (Haiti)</a></i><li> <a id='hu_HU' href="javascript:validChoixLangue('hu_HU')">Magyar (Magyarország)</a></i><li> <a id='it_CH' href="javascript:validChoixLangue('it_CH')">Italiano (Svizzera)</a></i><li> <a id='it_DE' href="javascript:validChoixLangue('it_DE')">Italia (Germania)</a></i><li> <a id='it_IT' href="javascript:validChoixLangue('it_IT')">Italiano (Italia)</a></i><li> <a id='jp_JP' href="javascript:validChoixLangue('jp_JP')">日本語 (日本)</a></i><li> <a id='ko_KR' href="javascript:validChoixLangue('ko_KR')">한국인 (대한민국)</a></i><li> <a id='lt_LT' href="javascript:validChoixLangue('lt_LT')">Lietuvių (Lietuva)</a></i><li> <a id='nl_BE' href="javascript:validChoixLangue('nl_BE')">Nederlands (België)</a></i><li> <a id='nl_NL' href="javascript:validChoixLangue('nl_NL')">Nederlands (Nederland)</a></i><li> <a id='no_NO' href="javascript:validChoixLangue('no_NO')">Norsk (Norge)</a></i><li> <a id='pk_EN' href="javascript:validChoixLangue('pk_EN')">اردو (انگلینڈ)</a></i><li> <a id='pl_PL' href="javascript:validChoixLangue('pl_PL')">Polski (Polska)</a></i><li> <a id='pt_BR' href="javascript:validChoixLangue('pt_BR')">Português (Brasil)</a></i><li> <a id='pt_PT' href="javascript:validChoixLangue('pt_PT')">Português (Portugal)</a></i><li> <a id='ro_RO' href="javascript:validChoixLangue('ro_RO')">Romana (Romania)</a></i><li> <a id='ru_BY' href="javascript:validChoixLangue('ru_BY')">pусский(Белоруссия)</a></i><li> <a id='ru_RU' href="javascript:validChoixLangue('ru_RU')">русский (Россия)</a></i><li> <a id='ru_UA' href="javascript:validChoixLangue('ru_UA')">русский(Україна)</a></i><li> <a id='si_LK' href="javascript:validChoixLangue('si_LK')">Sinhalese (Sri Lanka) </a></i><li> <a id='sk_SK' href="javascript:validChoixLangue('sk_SK')">Slovensky (Slovensko)</a></i><li> <a id='sl_SI' href="javascript:validChoixLangue('sl_SI')">slovenščina (Slovenija)</a></i><li> <a id='sr_RS' href="javascript:validChoixLangue('sr_RS')">Srpski (Srbija)</a></i><li> <a id='sv_SE' href="javascript:validChoixLangue('sv_SE')">Svenska (Sverige)</a></i><li> <a id='sw_TZ' href="javascript:validChoixLangue('sw_TZ')">Kiswahili (Tanzania)</a></i><li> <a id='tr_TR' href="javascript:validChoixLangue('tr_TR')">Türkçe (Türkiye)</a></i><li> <a id='xk_XK' href="javascript:validChoixLangue('xk_XK')">shqip (kosovar)</a></i><li> <a id='zh_CN' href="javascript:validChoixLangue('zh_CN')">中文（中国）</a></i></form>
+</ul></div></div>
+
+</div>
+
+
+
+
+<div id="contenu" class="dropdownbr">
+Mentions légales
+</a>&nbsp;
+<div class="dropdownbrandml">
+<ul>
+<li><a href="/contenu/AC/contenu_en.pdf" target="blank">Citroën</a><br /></li>
+<li><a href="/contenu/AP/contenu_en.pdf" target="blank">Peugeot</a><br /></li>
+<li><a href="/contenu/DS/contenu_en.pdf" target="blank">DS</a><br /></li>
+<!-- Chnages for Addition of two new brand SM4 E547410 Start -->
+<li><a href="/contenu/OV/contenu_en.pdf" target="blank">Opel / Vauxhall</a><br /></li>
+<li><a href="/contenu/CT/contenu_en.pdf" target="blank">Chevrolet (Europe)</a><br /></li>
+<!-- Chnages for Addition of two new brand SM4 E547410 End -->
+</ul>
+</div>
+</div>
+
+
+
+
+<div id="cgv">
+<span id="fle1_g"></span> <span id="fle1">Conditions Générales&nbsp;</span> <span id="fle1_d"></span>
+<div id="lien_cgv">
+
+<div class="dropdownbr">
+<ul>
+<li>Documentation</a></li>
+<div class="dropdownbranddoc">
+<ul>
+
+<li><a href="/cgv/AC/DOCTECH_cgv_en.pdf" target="blank">Citroën</a><br /></li>
+
+
+<li><a href="/cgv/AP/DOCTECH_cgv_en.pdf" target="blank">Peugeot</a><br /></li>
+
+
+<li><a href="/cgv/DS/DOCTECH_cgv_en.pdf" target="blank">DS</a><br /></li>
+
+<!-- Chnages for Addition of two new brand SM4 E547410 Start -->
+
+<li><a href="/cgv/OV/DOCTECH_cgv_en.pdf" target="blank">Opel / Vauxhall</a><br /></li>
+
+
+<li><a href="/cgv/CT/DOCTECH_cgv_en.pdf" target="blank">Chevrolet (Europe)</a><br /></li>
+
+<!-- Chnages for Addition of two new brand SM4 E547410 End -->
+</ul>
+</div>
+</ul>
+</div>
+
+
+
+
+<div class="dropdownbr">
+<ul>
+<li>Formation</a></li>
+<div class="dropdownbrandfr">
+<ul>
+<li><a href="/cgv/AC/PLMS_cgv_en.pdf" target="blank">Citroën</a><br /></li>
+<li><a href="/cgv/AP/PLMS_cgv_en.pdf" target="blank">Peugeot</a><br /></li>
+<li><a href="/cgv/DS/PLMS_cgv_en.pdf" target="blank">DS</a><br /></li>
+<!-- Chnages for Addition of two new brand SM4 E547410 Start -->
+<li><a href="/cgv/OV/PLMS_cgv_en.pdf" target="blank">Opel / Vauxhall</a><br /></li>
+<li><a href="/cgv/CT/PLMS_cgv_en.pdf" target="blank">Chevrolet (Europe)</a><br /></li>
+<!-- Chnages for Addition of two new brand SM4 E547410 End -->
+</ul>
+</div>
+</ul>
+</div>
+
+</ul>
+</div>
+</div>
+
+<div id="ctc">
+<span id="fle2_g"></span> <span id="fle2">Contenu+Tarifs+Contacts&nbsp; </span> <span id="fle2_d"></span>
+<div id="lien_ctc">
+
+<div class="dropdownbr">
+<ul>
+<li>Documentation</a><br /></li>
+<div class="dropdownbranddoc">
+<ul>
+
+<li><a href="/cgv/AC/DOCTECH_ctc_en.pdf" target="blank">Citroën</a><br /></li>
+
+
+<li><a href="/cgv/AP/DOCTECH_ctc_en.pdf" target="blank">Peugeot</a><br /></li>
+
+
+<li><a href="/cgv/DS/DOCTECH_ctc_en.pdf" target="blank">DS</a><br /></li>
+
+<!-- Chnages for Addition of two new brand SM4 E547410 Start -->
+
+<li><a href="/cgv/OV/DOCTECH_ctc_en.pdf" target="blank">Opel / Vauxhall</a><br /></li>
+
+
+<li><a href="/cgv/CT/DOCTECH_ctc_en.pdf" target="blank">Chevrolet (Europe)</a><br /></li>
+
+<!-- Chnages for Addition of two new brand SM4 E547410 End -->
+</ul>
+</div>
+</ul>
+</div>
+
+
+
+
+<div class="dropdownbr">
+<ul>
+<li>Formation</a></li>
+<div class="dropdownbrandfr">
+<ul>
+<li><a href="/cgv/AC/PLMS_ctc_fr.pdf" target="blank">Citroën</a><br /></li>
+<li><a href="/cgv/AP/PLMS_ctc_fr.pdf" target="blank">Peugeot</a><br /></li>
+<li><a href="/cgv/DS/PLMS_ctc_fr.pdf" target="blank">DS</a><br /></li>
+<!-- Chnages for Addition of two new brand SM4 E547410 Start -->
+<li><a href="/cgv/OV/PLMS_ctc_en.pdf" target="blank">Opel / Vauxhall</a><br /></li>
+<li><a href="/cgv/CT/PLMS_ctc_en.pdf" target="blank">Chevrolet (Europe)</a><br /></li>
+<!-- Chnages for Addition of two new brand SM4 E547410 End -->
+</ul>
+</div>
+</ul>
+</div>
+
+</ul>
+</div>
+</div>
+
+
+<div id="qsn">
+<a class="login_qsn">Qui sommes Nous?</a>
+</div>
+
+<div id="aide">
+<span id="fle3"> <!-- NRI OIN-1085 v5.0.0 --> 
+<script>
+getLinkLocale("/aides/OI/AC/documents/",
+"/index.html")
+</script>
+  Aide
+</span></a>
+</div>
+</div>
+
+<div id="header">
+
+<h1 id="globalTitle">
+Service Box
+</h1>
+<h2 id="appTitle">
+Opérateurs Indépendants
+</h2>
+<div id="tools"></div>
+<div id="navigation"></div>
+</div>
+<!-- CAP31196 Standardized Navigation Changes start -->
+<div id="nav">
+<ul id="menu">
+<li class="first"><span style="padding: 2px 12px;">NAVIGATION STANDARDISÉE</span>
+<ul id="sub">
+<li onclick="currentBrand('peugeotBrand')">Peugeot</li>
+<li onclick="currentBrand('citroenBrand')">Citroën</li>
+<li onclick="currentBrand('dsBrand')">DS</li>
+<li onclick="currentBrand('ovBrand')">Opel / Vauxhall</li>
+<li onclick="currentBrand('olegacyBrand')">Opel Legacy</li>
+</ul></li>
+</ul>
+</div>
+<div id="leftArrowBtn" style="display: none">
+<button
+style="z-index: 50; border: none;cursor: pointer; color: #0076A8; position: fixed; top: 30%; left:96%; font-weight: normal; height: 200px; width: 80px; background-color: Transparent; box-shadow: none; font-size: 200px; transform: scale(.4, 1); opacity: .6;"
+onclick="mySlider()">&#8249;</button>
+</div>
+<div id="rightArrowBtn" style="display: none">
+<button
+style="z-index: 50; border: none;cursor: pointer; color: #0076A8; position: fixed; top: 30%; left:96%; font-weight: normal; height: 200px; width: 80px; background-color: Transparent; box-shadow: none; font-size: 200px; transform: scale(.4, 1); opacity: .6;"
+onclick="mySlider()">&#8250;</button>
+</div>
+<div class="container" id='list' style="display: none">
+<div class="rows">
+<div class="col-4">
+<div id="show"></div>
+</div>
+<div class="col-8">
+<p id="hiddenTag" hidden></p>
+<div id="contentDiv" style="border: 2px solid #0076A8; border-radius: 24px; display: none; width: 95%; height: 55vh;">
+<div id="content">
+<iframe id="serviceFrameSend" title="AEStat File" src="" width="100%" height="100%" style="overflow: auto;"
+frameborder="0"></iframe>
+</div>
+</div>
+<div id="popBtn"></div>
+</div>
+</div>
+</div>
+<!-- CAP31196 Standardized Navigation Changes end -->
+
+<div id="global">
+<div>
+
+
+
+<!-- OIN 1661 Changes Start -->
+
+
+<!-- OIN 1661 Changes End -->
+
+</div>
+<div id="fond">
+<img src="/login/Fond_Login.jpg" />
+</div>
+<!-- formulaire -->
+<div style="display: none">
+<p id="invalid.user">
+Utilisateur invalide. Veuillez respecter les majuscules minuscules
+</p>
+</div>
+
+<div id="formul">
+<div>
+<input type="hidden" id="recaptchaChallengeTaken" name="recaptchaChallengeTaken" value="false" />
+</div>
+<div id="deja">
+<p style="font-size: 13px;">    Toutes les informations concernant <span style="color: blue; font-weight: bold;">la nouvelle procédure de connexion et les évolutions du site</span> sont disponibles dans la navigation standardisée <span style="color: blue; font-weight: bold; text-decoration: underline;">cliquer juste au dessus</span>.</p>
+</div>
+<table id="login">
+<tr>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+<form id="samlform" onSubmit="onSubmit()" action="https://fidm.eu1.gigya.com/saml/v2.0/4_orFmUKH1TrnP0kMf3hryrA/idp/sso" method="get">
+<input type="hidden" id="SAMLRequest" name="SAMLRequest"></input> <input type="hidden" id="ui_locales" name="ui_locales"></input>
+<td><div id="fle_conx">
+<input type="submit" id="conx-btn" class="conx" value='Connexion'
+margin-top="1000px">
+</div></td>
+</form>
+
+</div>
+</td>
+</tr>
+</table>
+<div id="oubli">
+<input type="hidden" value="https://www.technicalinformation.fiat.com/regAuth/?/dashboard/password-reset" id="watchWordURL" /> <a href="javascript:void(0);"
+onclick="goToTIPassword();">Mot de passe Oublié</a>
+</div>
+<input type="hidden" value="fr_FR
+" id="language" />
+
+
+<div id="prem_visite">
+1ère visite ? Créer un compte
+</div>
+<input type="hidden" value="https://www.technicalinformation.fiat.com/regAuth/?/registration" id="registrationURL" />
+<div id="insc">
+<a href="javascript:void(0);" onclick="goToTIRegistration();">Inscription</a>
+</div>
+
+
+<!-- Google Recaptcha-->
+<input type="hidden" name="window" value="jbnfRsGbgC0JCVdAam">
+<div id="login-captcha" class="g-recaptcha" data-sitekey="" data-callback="onChallengeSubmit" data-size="invisible"></div>
+
+</div>
+
+<div id="docbord_classic">
+<!-- Documentation de bord -->
+<!-- NRI OIN-1085 v5.0.0 -->
+
+
+<div id="docbord">
+<div id="docbord_ko">&nbsp;</div>
+<button onclick="drop()" class="dropbtn" id="docbord_lb">
+Documentation de bord</button>
+<div id="dropdown" class="dropdown-content">
+<a href="/ACddb/index.html" />
+Citroën
+</a> <a href="https://service.dsautomobiles.com/DSddb/" />
+DS
+</a> <a href="/APddb/index.html" />
+Peugeot
+</a>
+<!-- Chnages for Addition of two new brand SM4 E547410 Start -->
+<a href="https://public-servicebox.opel.com/OVddb/OV/index.html" />
+Opel / Vauxhall
+</a> <a href="/CTddb/index.html" />
+Chevrolet (Europe)
+</a>
+
+<a href="/EPERddb/" />
+ 
+</a>
+
+<!-- Chnages for Addition of two new brand SM4 E547410 End -->
+
+<a href=https://OwnerManual.star-7.com/customer/ownermanualregister?t=60a832215d0b48b5b11a47f3ed200d1d>Owner Manual Webshop</a>
+
+</div>
+</div>
+
+
+<!-- Peugeot Classic -->
+
+<!-- Code added for OIN-1245 Documentation De Board-->
+
+
+<div id="reach">
+<div id="reach_ko">&nbsp;</div>
+<span id="reach_lb"> <a href="/aides/REGULATION/"> REACH/SCIP & RDE data
+</a>
+</span>
+</div>
+
+
+<!-- END OIN-1245 -->
+</div>
+</div>
+<div id="popup" style="display: none">
+<p>
+<br><br><h3>
+</p>
+<p>
+Ce site est destiné aux professionnels de la réparation automobile*.
+</p>
+<p>
+</h3><br><br><h4>
+</p>
+<p>
+Il permet de consulter et de commander
+</p>
+<p>
+</h4><br><ul style="text-align:left;margin-left: 75px;">
+</p>
+<p>
+<li> Catalogue Pièce </li> <li> Documentation technique </li> <li> Schématique électrique</li> <li> Informations liées au diagnostic </li> <li> Méthodes de réparation</li> <li> etc.. </li>
+</p>
+<p>
+</ul><br><br><br><br><br><br><br><h5>
+</p>
+<p>
+*Réparateurs indépendants
+</p>
+<p>
+</h5>
+</p>
+</div>
+</div>
+
+<script>
+function onSubmit() {
+document.getElementById('samlform').submit();
+}
+function drop() {
+document.getElementById("dropdown").classList.toggle("show");
+}
+window.onclick = function(event) {
+if (!event.target.matches('.dropbtn')) {
+var dropdowns = document.getElementsByClassName("dropdown-content");
+var i;
+for (i = 0; i < dropdowns.length; i++) {
+var openDropdown = dropdowns[i];
+if (openDropdown.classList.contains('show')) {
+openDropdown.classList.remove('show');
+}
+}
+}
+}
+</script>
+<script type="text/javascript">
+checkCookieLangue();
+document.getElementById('Lang').scrollTop = document.getElementById(Get_Cookie("CodeLanguePaysOI")).offsetTop;
+tailleFond();
+</script>
+<script type="text/javascript">
+calculNbMenu();
+</script>
+</body>
+</html>

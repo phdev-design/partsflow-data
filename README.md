@@ -16,7 +16,11 @@ https://cdn.jsdelivr.net/gh/phdev-design/partsflow-data@main/
 
 ```
 rifter-k9/
-  images/*.jpg    # exploded-view diagrams
+  images/*        # exploded-view diagrams
+  pdf/*.pdf       # catalogue PDFs
+  data.json       # structured multilingual parts data
+traveller-k0/
+  images/*        # exploded-view diagrams
   pdf/*.pdf       # catalogue PDFs
   data.json       # structured multilingual parts data
 ```
