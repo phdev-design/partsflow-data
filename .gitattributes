@@ -1,3 +1,4 @@
 *.jpg -text
+*.gif -text
 *.png -text
 *.pdf -text
